@@ -1,29 +1,27 @@
 package net.stall.odyssey.Registries.Worldgen.Carvers.custom;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.util.Mth;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.chunk.CarvingMask;
+import net.minecraft.world.level.levelgen.Aquifer;
+import net.minecraft.world.level.levelgen.carver.CarvingContext;
+import net.minecraft.world.level.levelgen.carver.CaveCarverConfiguration;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.chunk.CarvingMask;
-import net.minecraft.world.level.chunk.ChunkAccess;
-import net.minecraft.world.level.levelgen.Aquifer;
-import net.minecraft.world.level.levelgen.carver.CaveCarverConfiguration;
-import net.minecraft.world.level.levelgen.carver.CaveWorldCarver;
-import net.minecraft.world.level.levelgen.carver.CarvingContext;
-import net.minecraft.world.level.levelgen.carver.WorldCarver;
 
 import java.util.function.Function;
 
-public class RotfulCavernsCarver extends CaveWorldCarver {
+public class RotfulCavernsCarver extends WorldCarver<CaveCarverConfiguration> {
 
     private static final int MIN_Y = -74;
     private static final int MAX_Y = -65;
 
-    public RotfulCavernsCarver(
-            com.mojang.serialization.Codec<CaveCarverConfiguration> codec
-    ) {
+    public RotfulCavernsCarver(Codec<CaveCarverConfiguration> codec) {
         super(codec);
     }
 
@@ -32,7 +30,7 @@ public class RotfulCavernsCarver extends CaveWorldCarver {
             CaveCarverConfiguration config,
             RandomSource random
     ) {
-        // Every chunk can start a cavern.
+        // Every chunk gets the cavern.
         return true;
     }
 
@@ -47,79 +45,56 @@ public class RotfulCavernsCarver extends CaveWorldCarver {
             ChunkPos chunkPos,
             CarvingMask carvingMask
     ) {
+        boolean carved = false;
 
-        // Every chunk creates multiple tunnels.
-        int tunnelCount = 2 + random.nextInt(3);
+        int minX = chunkPos.getMinBlockX();
+        int minZ = chunkPos.getMinBlockZ();
 
-        for (int i = 0; i < tunnelCount; i++) {
+        /*
+         * Make one continuous cavern layer.
+         *
+         * Every block in this chunk from MIN_Y to MAX_Y
+         * is carved if it belongs to the carver's replaceable tag.
+         */
+        for (int x = 0; x < 16; x++) {
+            for (int z = 0; z < 16; z++) {
 
-            double x =
-                    chunkPos.getMinBlockX()
-                            + 4
-                            + random.nextDouble() * 8.0D;
+                for (int y = MIN_Y; y <= MAX_Y; y++) {
 
-            double z =
-                    chunkPos.getMinBlockZ()
-                            + 4
-                            + random.nextDouble() * 8.0D;
+                    if (carvingMask.get(x, y, z)) {
+                        continue;
+                    }
 
-            /*
-             * Keep the tunnels in the middle of the layer.
-             *
-             * The skip checker below provides the absolute safety
-             * boundary of -74 through -65.
-             */
-            double y = -69.5D;
+                    BlockPos pos = new BlockPos(
+                            minX + x,
+                            y,
+                            minZ + z
+                    );
 
-            float yaw = random.nextFloat() * Mth.TWO_PI;
+                    /*
+                     * Only carve blocks allowed by the configured
+                     * replaceable tag.
+                     */
+                    if (!canReplaceBlock(config, chunk.getBlockState(pos))) {
+                        continue;
+                    }
 
-            // Keep the tunnels mostly horizontal.
-            float pitch = (random.nextFloat() - 0.5F) * 0.10F;
+                    carvingMask.set(x, y, z);
 
-            float thickness =
-                    1.8F + random.nextFloat() * 1.5F;
+                    /*
+                     * Cave air gives the layer normal cave behavior.
+                     */
+                    chunk.setBlockState(
+                            pos,
+                            Blocks.CAVE_AIR.defaultBlockState(),
+                            false
+                    );
 
-            double horizontalRadius =
-                    0.8D + random.nextDouble() * 0.7D;
-
-            double verticalRadius =
-                    0.8D + random.nextDouble() * 0.4D;
-
-            int branchCount = 1 + random.nextInt(2);
-
-            /*
-             * THIS is the important part.
-             *
-             * WorldCarver's normal tunnel code is used, but any block
-             * outside -74..-65 is rejected.
-             */
-            WorldCarver.CarveSkipChecker skipChecker =
-                    (carvingContext, relativeX, relativeY, relativeZ, blockY) ->
-                            blockY < MIN_Y || blockY > MAX_Y;
-
-            createTunnel(
-                    context,
-                    config,
-                    chunk,
-                    biomeAccessor,
-                    random.nextLong(),
-                    aquifer,
-                    x,
-                    y,
-                    z,
-                    horizontalRadius,
-                    verticalRadius,
-                    thickness,
-                    yaw,
-                    pitch,
-                    0,
-                    branchCount,
-                    1.0D,
-                    carvingMask,
-                    skipChecker
-            );
+                    carved = true;
+                }
+            }
         }
 
-        return true;
+        return carved;
     }
 }
