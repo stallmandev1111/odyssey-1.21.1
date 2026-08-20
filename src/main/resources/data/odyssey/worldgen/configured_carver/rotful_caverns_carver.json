@@ -11,29 +11,13 @@
         "absolute": -66
       }
     },
-    "yScale": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 1.0,
-      "max_exclusive": 1.01
-    },
+    "yScale": 1.0,
     "lava_level": {
       "above_bottom": 0
     },
-    "horizontal_radius_multiplier": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 1.0,
-      "max_exclusive": 1.01
-    },
-    "vertical_radius_multiplier": {
-      "type": "minecraft:uniform",
-      "min_inclusive": 1.0,
-      "max_exclusive": 1.01
-    },
-    "floor_level": {
-      "type": "uniform",
-      "min_inclusive": -1.0,
-      "max_exclusive": 0.0
-    },
+    "horizontal_radius_multiplier": 1.0,
+    "vertical_radius_multiplier": 1.0,
+    "floor_level": 0.0,
     "replaceable": "#minecraft:overworld_carver_replaceables",
     "debug_settings": {
       "debug_mode": false
