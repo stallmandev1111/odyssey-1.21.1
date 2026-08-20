@@ -6,33 +6,33 @@
     "y": {
       "type": "minecraft:uniform",
       "min_inclusive": {
-        "absolute": -78
+        "absolute": -74
       },
       "max_inclusive": {
-        "absolute": -66
+        "absolute": -68
       }
     },
 
     "yScale": {
       "type": "minecraft:uniform",
       "min_inclusive": 1.0,
-      "max_exclusive": 1.01
+      "max_exclusive": 1.5
     },
 
     "lava_level": {
-      "above_bottom": 6
+      "above_bottom": 1
     },
 
     "horizontal_radius_multiplier": {
       "type": "minecraft:uniform",
       "min_inclusive": 1.0,
-      "max_exclusive": 1.01
+      "max_exclusive": 1.5
     },
 
     "vertical_radius_multiplier": {
       "type": "minecraft:uniform",
       "min_inclusive": 1.0,
-      "max_exclusive": 1.01
+      "max_exclusive": 1.5
     },
 
     "floor_level": {
@@ -41,10 +41,10 @@
       "max_exclusive": 0.0
     },
 
-    "replaceable": "#odyssey:rotful_cavern_carver_replaceables",
+    "replaceable": "#minecraft:overworld_carver_replaceables",
 
     "debug_settings": {
-      "debug_mode": true
+      "debug_mode": false
     }
   }
 }

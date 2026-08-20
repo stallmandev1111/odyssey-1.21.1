@@ -17,10 +17,7 @@ public final class ModCarvers {
                     Odyssey.MODID
             );
 
-    public static final DeferredHolder<
-            WorldCarver<?>,
-            RotfulCavernsCarver
-            > ROTFUL_CAVERNS_CARVER =
+    public static final DeferredHolder<WorldCarver<?>, RotfulCavernsCarver> ROTFUL_CAVERNS =
             CARVERS.register(
                     "rotful_caverns_carver",
                     () -> new RotfulCavernsCarver(

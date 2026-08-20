@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_carvers",
-  "biomes": "odyssey:rotful_caverns",
+  "biomes": "#minecraft:is_overworld",
   "carvers": "odyssey:rotful_caverns_carver",
   "step": "air"
 }
