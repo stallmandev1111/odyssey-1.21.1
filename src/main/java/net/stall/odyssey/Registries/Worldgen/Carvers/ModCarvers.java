@@ -1,6 +1,5 @@
 package net.stall.odyssey.Registries.Worldgen.Carvers;
 
-import com.mojang.serialization.Codec;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.carver.CaveCarverConfiguration;
 import net.minecraft.world.level.levelgen.carver.WorldCarver;
@@ -8,7 +7,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.stall.odyssey.Odyssey;
-import net.stall.odyssey.Registries.Worldgen.Carvers.custom.RottedCavernsCarver;
+import net.stall.odyssey.Registries.Worldgen.Carvers.custom.RotfulCavernsCarver;
 
 public final class ModCarvers {
 
@@ -21,10 +20,10 @@ public final class ModCarvers {
                     Odyssey.MODID
             );
 
-    public static final DeferredHolder<WorldCarver<?>, RottedCavernsCarver> ROTTED_CAVERNS =
+    public static final DeferredHolder<WorldCarver<?>, RotfulCavernsCarver> ROTTED_CAVERNS =
             CARVERS.register(
-                    "rotted_caverns",
-                    () -> new RottedCavernsCarver(CaveCarverConfiguration.CODEC)
+                    "rotful_caverns",
+                    () -> new RotfulCavernsCarver(CaveCarverConfiguration.CODEC)
             );
 
     public static void register(IEventBus eventBus) {
