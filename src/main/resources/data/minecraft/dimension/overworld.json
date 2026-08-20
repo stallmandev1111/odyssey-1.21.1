@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:overworld",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "minecraft:overworld",
+    "biome_source": {
+      "type": "odyssey:rotful_caverns_biome_source",
+      "overworld_params": "minecraft:overworld",
+      "cavern_biome": "odyssey:rotful_caverns"
+    }
+  }
+}

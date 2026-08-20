@@ -1,0 +1,36 @@
+{
+  "temperature": 2,
+  "downfall": 0,
+  "has_precipitation": false,
+  "effects": {
+    "fog_color": 1584929,
+    "sky_color": 0,
+    "water_color": 3949760,
+    "water_fog_color": 329011,
+    "grass_color": 1584929,
+    "foliage_color": 1584929,
+    "ambient_sound": "minecraft:ambient.nether_wastes.loop",
+    "mood_sound": {
+      "sound": "minecraft:ambient.nether_wastes.mood",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2
+    },
+    "particle": {
+      "options": {
+        "type": "minecraft:ash"
+      },
+      "probability": 0.1
+    }
+  },
+  "carvers": {
+    "air": [
+      "odyssey:rotful_caverns_carver"
+    ]
+  },
+  "spawners": {
+    "monster": []
+  },
+  "spawn_costs": {},
+  "features": []
+}

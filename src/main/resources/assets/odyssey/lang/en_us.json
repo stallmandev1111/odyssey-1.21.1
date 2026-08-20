@@ -1,0 +1,13 @@
+{
+  "itemGroup.odyssey": "Example Mod Tab",
+  "block.odyssey.example_block": "Example Block",
+  "item.odyssey.example_item": "Example Item",
+
+  "odyssey.configuration.title": "Odyssey Configs",
+  "odyssey.configuration.section.odyssey.common.toml": "Odyssey Configs",
+  "odyssey.configuration.section.odyssey.common.toml.title": "Odyssey Configs",
+  "odyssey.configuration.items": "Item List",
+  "odyssey.configuration.logDirtBlock": "Log Dirt Block",
+  "odyssey.configuration.magicNumberIntroduction": "Magic Number Text",
+  "odyssey.configuration.magicNumber": "Magic Number"
+}
