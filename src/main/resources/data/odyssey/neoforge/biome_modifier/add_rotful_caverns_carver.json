@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_carvers",
+  "biomes": "odyssey:rotful_caverns",
+  "carvers": "odyssey:rotful_caverns",
+  "step": "air"
+}

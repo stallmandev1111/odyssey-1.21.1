@@ -1,0 +1,44 @@
+{
+  "type": "odyssey:rotful_caverns",
+  "config": {
+    "probability": 1.0,
+    "y": {
+      "type": "minecraft:uniform",
+      "value": {
+        "min_inclusive": -72,
+        "max_inclusive": -67
+      }
+    },
+    "y_scale": {
+      "type": "minecraft:constant",
+      "value": 1.0
+    },
+    "lava_level": {
+      "above_bottom": 0
+    },
+    "debug_settings": {
+      "is_debug": false,
+      "air_state": {
+        "Name": "minecraft:cave_air"
+      },
+      "water_state": {
+        "Name": "minecraft:water"
+      },
+      "lava_state": {
+        "Name": "minecraft:lava"
+      }
+    },
+    "horizontal_radius_multiplier": {
+      "type": "minecraft:constant",
+      "value": 1.0
+    },
+    "vertical_radius_multiplier": {
+      "type": "minecraft:constant",
+      "value": 1.0
+    },
+    "floor_level": {
+      "type": "minecraft:constant",
+      "value": -0.7
+    }
+  }
+}
