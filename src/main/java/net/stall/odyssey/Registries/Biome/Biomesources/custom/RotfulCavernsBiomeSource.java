@@ -26,12 +26,21 @@ public final class RotfulCavernsBiomeSource extends BiomeSource {
 
             ).apply(instance, RotfulCavernsBiomeSource::new));
 
+    /*
+     * Rotful Caverns occupies the deep underground layer.
+     *
+     * Y -60 through Y -20:
+     *     Rotful Caverns
+     *
+     * Above Y -20:
+     *     Normal Overworld biomes
+     */
     private static final int CAVERN_MIN_Y = -80;
     private static final int CAVERN_MAX_Y = -64;
 
     private final Holder<MultiNoiseBiomeSourceParameterList> overworldParams;
     private final Holder<Biome> cavernBiome;
-    private final MultiNoiseBiomeSource delegate;
+    private final MultiNoiseBiomeSource overworldDelegate;
 
     public RotfulCavernsBiomeSource(
             Holder<MultiNoiseBiomeSourceParameterList> overworldParams,
@@ -40,7 +49,7 @@ public final class RotfulCavernsBiomeSource extends BiomeSource {
         this.overworldParams = overworldParams;
         this.cavernBiome = cavernBiome;
 
-        this.delegate = MultiNoiseBiomeSource.createFromList(
+        this.overworldDelegate = MultiNoiseBiomeSource.createFromList(
                 overworldParams.value().parameters()
         );
     }
@@ -53,7 +62,7 @@ public final class RotfulCavernsBiomeSource extends BiomeSource {
     @Override
     protected Stream<Holder<Biome>> collectPossibleBiomes() {
         return Stream.concat(
-                delegate.possibleBiomes().stream(),
+                overworldDelegate.possibleBiomes().stream(),
                 Stream.of(cavernBiome)
         );
     }
@@ -71,7 +80,7 @@ public final class RotfulCavernsBiomeSource extends BiomeSource {
             return cavernBiome;
         }
 
-        return delegate.getNoiseBiome(
+        return overworldDelegate.getNoiseBiome(
                 quartX,
                 quartY,
                 quartZ,

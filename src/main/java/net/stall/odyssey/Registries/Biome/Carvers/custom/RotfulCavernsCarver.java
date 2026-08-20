@@ -18,9 +18,9 @@ import java.util.function.Function;
 
 public class RotfulCavernsCarver extends CaveWorldCarver {
 
-    private static final int CAVERN_BOTTOM = -73;
-    private static final int CAVERN_TOP = -71;
-    private static final int LAVA_Y = -73;
+    private static final int CAVERN_BOTTOM = -64;
+    private static final int CAVERN_TOP = -77;
+    private static final int LAVA_Y = -76;
 
     public RotfulCavernsCarver(
             Codec<CaveCarverConfiguration> codec
