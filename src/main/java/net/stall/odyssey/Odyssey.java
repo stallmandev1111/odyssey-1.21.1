@@ -23,7 +23,6 @@ public class Odyssey {
 
     public Odyssey(IEventBus modEventBus, ModContainer modContainer) {
         ModBiomeSources.register(modEventBus);
-        ModCarvers.register(modEventBus);
 
     }
 
