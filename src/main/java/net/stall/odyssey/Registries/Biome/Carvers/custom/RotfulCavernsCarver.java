@@ -31,6 +31,7 @@ public class RotfulCavernsCarver extends CaveWorldCarver {
 
     @Override
     public boolean carve(
+
             CarvingContext context,
             CaveCarverConfiguration config,
             ChunkAccess chunk,
@@ -40,6 +41,10 @@ public class RotfulCavernsCarver extends CaveWorldCarver {
             ChunkPos chunkPos,
             CarvingMask carvingMask
     ) {
+        System.out.println(
+                "!!! ROTFUL CAVERNS CARVER CALLED: "
+                        + chunkPos
+        );
         double x = chunkPos.getMiddleBlockX();
         double y = -72.0D;
         double z = chunkPos.getMiddleBlockZ();
