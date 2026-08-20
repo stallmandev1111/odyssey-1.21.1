@@ -44,7 +44,7 @@
     "replaceable": "#odyssey:rotful_cavern_carver_replaceables",
 
     "debug_settings": {
-      "debug_mode": false
+      "debug_mode": true
     }
   }
 }
