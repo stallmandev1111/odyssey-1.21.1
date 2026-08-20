@@ -2,7 +2,6 @@ package net.stall.odyssey;
 
 
 import net.stall.odyssey.Registries.Worldgen.Biome.Biomesources.ModBiomeSources;
-import net.stall.odyssey.Registries.Worldgen.Carvers.ModCarvers;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
