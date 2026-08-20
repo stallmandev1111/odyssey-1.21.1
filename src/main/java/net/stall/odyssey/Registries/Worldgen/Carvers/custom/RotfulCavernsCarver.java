@@ -16,12 +16,12 @@ import net.minecraft.world.level.ChunkPos;
 
 import java.util.function.Function;
 
-public class RottedCavernsCarver extends WorldCarver<CaveCarverConfiguration> {
+public class RotfulCavernsCarver extends WorldCarver<CaveCarverConfiguration> {
 
     private static final int MIN_Y = -74;
     private static final int MAX_Y = -65;
 
-    public RottedCavernsCarver(Codec<CaveCarverConfiguration> codec) {
+    public RotfulCavernsCarver(Codec<CaveCarverConfiguration> codec) {
         super(codec);
     }
 

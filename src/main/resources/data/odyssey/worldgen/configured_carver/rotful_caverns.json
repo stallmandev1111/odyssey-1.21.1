@@ -4,15 +4,14 @@
     "probability": 1.0,
     "y": {
       "type": "minecraft:uniform",
-      "value": {
-        "min_inclusive": -72,
-        "max_inclusive": -67
+      "min_inclusive": {
+        "absolute": -74
+      },
+      "max_inclusive": {
+        "absolute": -65
       }
     },
-    "y_scale": {
-      "type": "minecraft:constant",
-      "value": 1.0
-    },
+    "yScale": 1.0,
     "lava_level": {
       "above_bottom": 0
     },
@@ -28,17 +27,9 @@
         "Name": "minecraft:lava"
       }
     },
-    "horizontal_radius_multiplier": {
-      "type": "minecraft:constant",
-      "value": 1.0
-    },
-    "vertical_radius_multiplier": {
-      "type": "minecraft:constant",
-      "value": 1.0
-    },
-    "floor_level": {
-      "type": "minecraft:constant",
-      "value": -0.7
-    }
+    "replaceable": "#minecraft:overworld_carver_replaceables",
+    "horizontal_radius_multiplier": 1.0,
+    "vertical_radius_multiplier": 1.0,
+    "floor_level": -0.7
   }
 }
