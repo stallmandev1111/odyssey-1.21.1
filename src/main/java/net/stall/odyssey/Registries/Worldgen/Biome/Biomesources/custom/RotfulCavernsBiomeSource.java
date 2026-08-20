@@ -1,4 +1,4 @@
-package net.stall.odyssey.Registries.Biome.Biomesources.custom;
+package net.stall.odyssey.Registries.Worldgen.Biome.Biomesources.custom;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

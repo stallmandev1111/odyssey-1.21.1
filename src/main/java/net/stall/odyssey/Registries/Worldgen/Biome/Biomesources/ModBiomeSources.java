@@ -1,4 +1,4 @@
-package net.stall.odyssey.Registries.Biome.Biomesources;
+package net.stall.odyssey.Registries.Worldgen.Biome.Biomesources;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.registries.Registries;
@@ -7,7 +7,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.stall.odyssey.Odyssey;
-import net.stall.odyssey.Registries.Biome.Biomesources.custom.RotfulCavernsBiomeSource;
+import net.stall.odyssey.Registries.Worldgen.Biome.Biomesources.custom.RotfulCavernsBiomeSource;
 
 public final class ModBiomeSources {
 
