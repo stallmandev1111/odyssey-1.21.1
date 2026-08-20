@@ -3,7 +3,6 @@ package net.stall.odyssey.Registries.Biome.Carvers.custom;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.biome.Biome;
@@ -19,21 +18,14 @@ import java.util.function.Function;
 
 public class RotfulCavernsCarver extends CaveWorldCarver {
 
-    private static final int MIN_Y = -74;
-    private static final int MAX_Y = -68;
+    private static final int MIN_Y = -73;
+    private static final int MAX_Y = -66;
 
-    private static final int LAVA_Y = -79;
+    private static final int LAVA_Y = -73;
 
-    private static final int MIN_TUNNELS = 3;
-    private static final int MAX_TUNNELS = 6;
-
-    private static final double MIN_TUNNEL_LENGTH = 40.0D;
-    private static final double MAX_TUNNEL_LENGTH = 90.0D;
-
-    private static final double MIN_RADIUS = 3.0D;
-    private static final double MAX_RADIUS = 6.0D;
-
-    public RotfulCavernsCarver(Codec<CaveCarverConfiguration> codec) {
+    public RotfulCavernsCarver(
+            Codec<CaveCarverConfiguration> codec
+    ) {
         super(codec);
     }
 
@@ -56,222 +48,15 @@ public class RotfulCavernsCarver extends CaveWorldCarver {
             ChunkPos chunkPos,
             CarvingMask carvingMask
     ) {
-        int tunnelCount = Mth.nextInt(
-                random,
-                MIN_TUNNELS,
-                MAX_TUNNELS
-        );
+        double centerX =
+                chunkPos.getMiddleBlockX();
 
-        for (int i = 0; i < tunnelCount; i++) {
-            generateTunnel(
-                    chunk,
-                    carvingMask,
-                    random,
-                    chunkPos
-            );
-        }
+        double centerZ =
+                chunkPos.getMiddleBlockZ();
 
-        return true;
-    }
+        double radius =
+                12.0D + random.nextDouble() * 8.0D;
 
-    private void generateTunnel(
-            ChunkAccess chunk,
-            CarvingMask carvingMask,
-            RandomSource random,
-            ChunkPos chunkPos
-    ) {
-        double x =
-                chunkPos.getMinBlockX()
-                        + random.nextDouble() * 16.0D;
-
-        double z =
-                chunkPos.getMinBlockZ()
-                        + random.nextDouble() * 16.0D;
-
-        double y =
-                -72.0D
-                        + (random.nextDouble() - 0.5D);
-
-        double angle =
-                random.nextDouble()
-                        * Math.PI
-                        * 2.0D;
-
-        double length =
-                MIN_TUNNEL_LENGTH
-                        + random.nextDouble()
-                        * (
-                        MAX_TUNNEL_LENGTH
-                                - MIN_TUNNEL_LENGTH
-                );
-
-        double baseRadius =
-                MIN_RADIUS
-                        + random.nextDouble()
-                        * (
-                        MAX_RADIUS
-                                - MIN_RADIUS
-                );
-
-        int steps =
-                (int) (length * 2.0D);
-
-        double noise1 =
-                random.nextDouble() * 1000.0D;
-
-        double noise2 =
-                random.nextDouble() * 1000.0D;
-
-        double noise3 =
-                random.nextDouble() * 1000.0D;
-
-        for (int step = 0; step <= steps; step++) {
-            double progress =
-                    step / (double) steps;
-
-            x += Math.cos(angle) * 0.5D;
-            z += Math.sin(angle) * 0.5D;
-
-            angle +=
-                    Math.sin(
-                            progress * Math.PI * 2.5D
-                                    + noise1
-                    ) * 0.045D;
-
-            angle +=
-                    Math.sin(
-                            progress * Math.PI * 6.0D
-                                    + noise2
-                    ) * 0.025D;
-
-            y +=
-                    Math.sin(
-                            progress * Math.PI * 2.0D
-                                    + noise3
-                    ) * 0.035D;
-
-            y = Mth.clamp(
-                    y,
-                    -72.5D,
-                    -69.5D
-            );
-
-            double radiusNoise =
-                    1.0D
-                            + Math.sin(
-                            x * 0.16D
-                                    + noise1
-                    ) * 0.25D
-                            + Math.sin(
-                            z * 0.21D
-                                    + noise2
-                    ) * 0.20D
-                            + Math.sin(
-                            (x + z) * 0.08D
-                                    + noise3
-                    ) * 0.15D;
-
-            double lengthNoise =
-                    0.85D
-                            + Math.sin(
-                            progress * Math.PI * 4.0D
-                                    + noise2
-                    ) * 0.20D;
-
-            double radius =
-                    baseRadius
-                            * radiusNoise
-                            * lengthNoise;
-
-            double floorNoise =
-                    Math.sin(
-                            x * 0.20D
-                                    + noise1
-                    ) * 0.65D
-                            + Math.sin(
-                            z * 0.15D
-                                    + noise2
-                    ) * 0.55D
-                            + Math.sin(
-                            (x - z) * 0.08D
-                                    + noise3
-                    ) * 0.45D;
-
-            double ceilingNoise =
-                    Math.sin(
-                            x * 0.16D
-                                    + noise3
-                    ) * 0.75D
-                            + Math.sin(
-                            z * 0.19D
-                                    + noise1
-                    ) * 0.55D
-                            + Math.sin(
-                            (x + z) * 0.07D
-                                    + noise2
-                    ) * 0.65D;
-
-            double slope =
-                    Math.sin(
-                            progress * Math.PI * 4.0D
-                                    + noise1
-                    );
-
-            double floor =
-                    -74.0D
-                            + floorNoise * 0.35D
-                            + slope * 0.35D;
-
-            double ceiling =
-                    -68.0D
-                            + ceilingNoise * 0.35D
-                            - slope * 0.25D;
-
-            floor =
-                    Mth.clamp(
-                            floor,
-                            -74.0D,
-                            -70.0D
-                    );
-
-            ceiling =
-                    Mth.clamp(
-                            ceiling,
-                            -72.0D,
-                            -68.0D
-                    );
-
-            if (ceiling <= floor + 2.0D) {
-                ceiling = floor + 2.0D;
-            }
-
-            carveSection(
-                    chunk,
-                    carvingMask,
-                    x,
-                    z,
-                    floor,
-                    ceiling,
-                    radius,
-                    noise1,
-                    noise2,
-                    noise3
-            );
-        }
-    }
-
-    private void carveSection(
-            ChunkAccess chunk,
-            CarvingMask carvingMask,
-            double centerX,
-            double centerZ,
-            double floor,
-            double ceiling,
-            double radius,
-            double noise1,
-            double noise2,
-            double noise3
-    ) {
         int minX =
                 (int) Math.floor(
                         centerX - radius
@@ -292,112 +77,112 @@ public class RotfulCavernsCarver extends CaveWorldCarver {
                         centerZ + radius
                 );
 
-        for (int y = MIN_Y; y <= MAX_Y; y++) {
+        for (int x = minX; x <= maxX; x++) {
             for (int z = minZ; z <= maxZ; z++) {
-                for (int x = minX; x <= maxX; x++) {
 
-                    if (!isInsideChunk(chunk, x, z)) {
+                if (
+                        x < chunk.getPos().getMinBlockX()
+                                || x > chunk.getPos().getMaxBlockX()
+                                || z < chunk.getPos().getMinBlockZ()
+                                || z > chunk.getPos().getMaxBlockZ()
+                ) {
+                    continue;
+                }
+
+                double dx =
+                        (x + 0.5D - centerX)
+                                / radius;
+
+                double dz =
+                        (z + 0.5D - centerZ)
+                                / radius;
+
+                double distance =
+                        Math.sqrt(
+                                dx * dx
+                                        + dz * dz
+                        );
+
+                double wallNoise =
+                        Math.sin(
+                                x * 0.35D
+                        ) * 0.18D
+                                + Math.cos(
+                                z * 0.31D
+                        ) * 0.18D
+                                + Math.sin(
+                                (x + z) * 0.17D
+                        ) * 0.12D;
+
+                if (
+                        distance
+                                > 0.82D
+                                + wallNoise
+                ) {
+                    continue;
+                }
+
+                double floorNoise =
+                        Math.sin(
+                                x * 0.12D
+                        ) * 0.7D
+                                + Math.cos(
+                                z * 0.10D
+                        ) * 0.5D;
+
+                double ceilingNoise =
+                        Math.sin(
+                                x * 0.09D
+                        ) * 0.6D
+                                + Math.cos(
+                                z * 0.13D
+                        ) * 0.5D;
+
+                int floor =
+                        clamp(
+                                -73
+                                        + (int) Math.round(
+                                        floorNoise
+                                ),
+                                -73,
+                                -71
+                        );
+
+                int ceiling =
+                        clamp(
+                                -66
+                                        + (int) Math.round(
+                                        ceilingNoise
+                                ),
+                                -68,
+                                -66
+                        );
+
+                for (int y = floor; y <= ceiling; y++) {
+
+                    if (
+                            y < MIN_Y
+                                    || y > MAX_Y
+                    ) {
                         continue;
                     }
 
-                    double dx =
-                            (x + 0.5D - centerX)
-                                    / radius;
-
-                    double dz =
-                            (z + 0.5D - centerZ)
-                                    / radius;
-
-                    double distance =
-                            Math.sqrt(
-                                    dx * dx
-                                            + dz * dz
-                            );
-
-                    if (distance > 1.0D) {
-                        continue;
-                    }
-
-                    double erosion =
-                            Math.sin(
-                                    x * 0.45D
-                                            + noise1
-                            ) * 0.16D
-                                    + Math.sin(
-                                    z * 0.50D
-                                            + noise2
-                            ) * 0.16D
-                                    + Math.sin(
-                                    (x + z) * 0.22D
-                                            + noise3
-                            ) * 0.12D;
-
-                    double edge =
-                            0.82D + erosion;
-
-                    if (distance > edge) {
-                        continue;
-                    }
-
-                    double vertical =
-                            (y - floor)
-                                    / Math.max(
-                                    0.1D,
-                                    ceiling - floor
-                            );
-
-                    double horizontalSlope =
-                            Math.sin(
-                                    distance
-                                            * Math.PI
-                            );
-
-                    double localFloor =
-                            floor
-                                    + horizontalSlope * 0.45D;
-
-                    double localCeiling =
-                            ceiling
-                                    - horizontalSlope * 0.45D;
-
-                    double pillarBias =
-                            Math.sin(
-                                    x * 0.11D
-                                            + noise1
+                    if (
+                            isPillar(
+                                    x,
+                                    y,
+                                    z
                             )
-                                    * Math.sin(
-                                    z * 0.13D
-                                            + noise2
-                            );
-
-                    double pillarThreshold =
-                            0.45D
-                                    + pillarBias * 0.20D;
-
-                    double pillarShape =
-                            Math.abs(
-                                    Math.sin(
-                                            x * 0.055D
-                                                    + z * 0.035D
-                                                    + noise3
-                                    )
-                            );
-
-                    if (
-                            pillarShape > pillarThreshold
-                                    && distance > 0.25D
-                                    && vertical > 0.05D
-                                    && vertical < 0.95D
                     ) {
                         continue;
                     }
 
-                    if (
-                            y + 0.5D <= localFloor
-                                    || y + 0.5D >= localCeiling
-                    ) {
-                        continue;
-                    }
+                    BlockPos pos =
+                            new BlockPos(
+                                    x,
+                                    y,
+                                    z
+                            );
 
                     if (
                             carvingMask.get(
@@ -409,22 +194,32 @@ public class RotfulCavernsCarver extends CaveWorldCarver {
                         continue;
                     }
 
-                    BlockPos pos =
-                            new BlockPos(x, y, z);
-
                     if (y == LAVA_Y) {
-                        chunk.setBlockState(
-                                pos,
-                                Blocks.LAVA.defaultBlockState(),
-                                false
+                        if (
+                                chunk.getBlockState(pos)
+                                        .isAir()
+                        ) {
+                            chunk.setBlockState(
+                                    pos,
+                                    Blocks.LAVA.defaultBlockState(),
+                                    false
+                            );
+                        }
+
+                        carvingMask.set(
+                                x & 15,
+                                y,
+                                z & 15
                         );
-                    } else {
-                        chunk.setBlockState(
-                                pos,
-                                Blocks.AIR.defaultBlockState(),
-                                false
-                        );
+
+                        continue;
                     }
+
+                    chunk.setBlockState(
+                            pos,
+                            Blocks.AIR.defaultBlockState(),
+                            false
+                    );
 
                     carvingMask.set(
                             x & 15,
@@ -434,16 +229,125 @@ public class RotfulCavernsCarver extends CaveWorldCarver {
                 }
             }
         }
+
+        return true;
     }
 
-    private boolean isInsideChunk(
-            ChunkAccess chunk,
+    private boolean isPillar(
             int x,
+            int y,
             int z
     ) {
-        return x >= chunk.getPos().getMinBlockX()
-                && x <= chunk.getPos().getMaxBlockX()
-                && z >= chunk.getPos().getMinBlockZ()
-                && z <= chunk.getPos().getMaxBlockZ();
+        double cellX =
+                Math.floor(
+                        x / 24.0D
+                );
+
+        double cellZ =
+                Math.floor(
+                        z / 24.0D
+                );
+
+        double pillarX =
+                cellX * 24.0D
+                        + 12.0D
+                        + hash(
+                        (int) cellX,
+                        (int) cellZ,
+                        1
+                ) * 6.0D;
+
+        double pillarZ =
+                cellZ * 24.0D
+                        + 12.0D
+                        + hash(
+                        (int) cellX,
+                        (int) cellZ,
+                        2
+                ) * 6.0D;
+
+        double progress =
+                (y - MIN_Y)
+                        / (double) (
+                        MAX_Y - MIN_Y
+                );
+
+        double leanX =
+                Math.sin(
+                        pillarZ * 0.08D
+                ) * 3.0D;
+
+        double leanZ =
+                Math.cos(
+                        pillarX * 0.08D
+                ) * 3.0D;
+
+        pillarX +=
+                leanX * progress;
+
+        pillarZ +=
+                leanZ * progress;
+
+        double dx =
+                x + 0.5D - pillarX;
+
+        double dz =
+                z + 0.5D - pillarZ;
+
+        double distance =
+                Math.sqrt(
+                        dx * dx
+                                + dz * dz
+                );
+
+        double radius =
+                3.0D
+                        + Math.sin(
+                        x * 0.18D
+                                + z * 0.12D
+                ) * 0.8D;
+
+        return distance < radius;
+    }
+
+    private double hash(
+            int x,
+            int z,
+            int seed
+    ) {
+        long value =
+                x * 341873128712L
+                        + z * 132897987541L
+                        + seed * 42317861L;
+
+        value ^=
+                value >> 13;
+
+        value *=
+                1274126177L;
+
+        value ^=
+                value >> 16;
+
+        return (
+                (value & 0xFFFFFFL)
+                        / (double) 0xFFFFFFL
+                        * 2.0D
+                        - 1.0D
+        );
+    }
+
+    private int clamp(
+            int value,
+            int min,
+            int max
+    ) {
+        return Math.max(
+                min,
+                Math.min(
+                        max,
+                        value
+                )
+        );
     }
 }
