@@ -23,7 +23,11 @@
       "probability": 0.08
     }
   },
-  "carvers": {},
+  "carvers": {
+    "air": [
+      "odyssey:rotful_caverns"
+    ]
+  },
   "spawners": {
     "monster": []
   },
