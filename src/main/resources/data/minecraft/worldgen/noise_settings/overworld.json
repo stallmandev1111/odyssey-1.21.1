@@ -2519,7 +2519,7 @@
         "type": "minecraft:condition",
         "if_true": {
           "type": "minecraft:vertical_gradient",
-          "random_name": "minecraft:netherrack",
+          "random_name": "minecraft:mossy_cobblestone",
           "true_at_and_below": {
             "absolute": -64
           },
@@ -2530,7 +2530,7 @@
         "then_run": {
           "type": "minecraft:block",
           "result_state": {
-            "Name": "minecraft:netherrack",
+            "Name": "minecraft:mossy_cobblestone",
             "Properties": {}
           }
         }
