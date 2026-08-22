@@ -3,6 +3,7 @@ package net.stall.odyssey;
 
 import net.stall.odyssey.Registries.Worldgen.Biome.Biomesources.ModBiomeSources;
 import net.stall.odyssey.Registries.Worldgen.Carvers.ModCarvers;
+import net.stall.odyssey.Registries.Worldgen.Features.ModFeatures;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -24,6 +25,7 @@ public class Odyssey {
     public Odyssey(IEventBus modEventBus, ModContainer modContainer) {
         ModBiomeSources.register(modEventBus);
         ModCarvers.register(modEventBus);
+        ModFeatures.register(modEventBus);
 
     }
 

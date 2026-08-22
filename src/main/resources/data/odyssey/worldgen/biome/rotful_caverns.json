@@ -32,19 +32,7 @@
     "monster": []
   },
   "spawn_costs": {},
-  "features": [
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [
-      "minecraft:glow_lichen"
-    ],
-    []
-  ]
+
+  "features": []
+
 }

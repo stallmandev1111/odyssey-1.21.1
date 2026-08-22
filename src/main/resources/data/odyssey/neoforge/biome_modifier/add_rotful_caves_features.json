@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "odyssey:rotful_caverns",
+  "features": "odyssey:rotful_caverns_grass",
+  "step": "vegetal_decoration"
+}

@@ -1,0 +1,8 @@
+{
+  "type": "odyssey:rotful_blob",
+  "config": {
+    "radius": 4,
+    "target": "minecraft:mossy_cobblestone",
+    "replace": "minecraft:grass_block"
+  }
+}
